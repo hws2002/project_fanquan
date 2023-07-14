@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name='viewport' content="width=device-width, initial-scale=1.0"/>
+        <title>{%block title %} Index {%endblock%}</title>
+        {% load static%}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/index.css'%}"/>
+    </head>
+    <body>
+        <div id='main'>
+            {% block div%}
+                <div id="index"></div>
+            {%endblock%}
+        </div>
+
+        {% block script%}
+        <script src="{% static 'js/main.js' %}"></script>
+        {%endblock%}
+    </body>
+</html>
+
+{% comment %}  
+    # Clone this html in other .html files by
+        {% extends 'index.html'%}
+    # for some elements that you want to change,
+    # block the element in this file and then
+    # define it in the other file
+        {% block div%}
+            <div id="index"><h1>To be changed in other file</h1></div>
+        {%endblock%}
+
+    # refer to static files like so 
+        {% load static %}
+        <link href="{% static 'dashboard/style.css' %}" rel="stylesheet">
+        <script src="{% static 'dashboard/script.js' %}"></script>
+{% endcomment %}

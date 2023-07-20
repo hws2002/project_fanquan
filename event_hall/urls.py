@@ -9,4 +9,5 @@ urlpatterns = [
     
     # API ENDPOINTS
     path('new_event',views.CreateEventView.as_view(),name='new_event'),
+    path('categories',views.CategoryView.as_view(),name='categories'),
 ]

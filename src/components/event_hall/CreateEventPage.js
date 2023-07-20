@@ -18,17 +18,21 @@ export default class CreateEventPage extends Component {
       event_description: "",
       capacity: 7,
       category_id: "1", // Default category
-      categories: [
-        { id: '1', name: 'Sports' },
-        { id: '2', name: 'Lecture' },
-        { id: '3', name: 'Concert' },
-        { id: '4', name: 'Hangout' },
-        { id: '5', name: 'Study' },
-        { id: '6', name: 'School Event' },
-        { id: '7', name: 'Others' },
-      ], // Add state for list of categories
+      categories: [], // Add state for list of categories
     //   newCategory: "", // State for new category input
     };
+    }
+    // fetch Categories from backend
+    componentDidMount() {
+        fetch("/event_hall/categories")
+            .then((response) => response.json())
+            .then((data) => {
+                // console.log("Categories fetched:", data);
+                this.setState({ categories: data });
+            })
+            .catch((error) => {
+                console.log("Error fetching categories:", error);
+            });
     }
 
   handleInputChange = (event) => {
@@ -71,7 +75,7 @@ export default class CreateEventPage extends Component {
       <Grid container spacing={1}>
         <Grid item xs={12} align="center">
           <Typography component="h4" variant="h4">
-            Create A Event
+            Create Event!
           </Typography>
         </Grid>
         <Grid item xs={12} align="center">

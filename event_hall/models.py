@@ -4,9 +4,18 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 # Create your models here.
-
 class Category(models.Model):
     id = models.AutoField(primary_key=True)
+    name = models.CharField(
+        max_length=128,
+
+        unique=True,
+        db_column='name',
+        )
+    
+    def __str__(self):
+        return self.name
+
     class Meta:
         db_table = 'Category'
 

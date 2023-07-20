@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from rest_framework import generics,status
 from django.http import HttpResponse,JsonResponse
-from .models import Event
+from .models import Event,Category
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from .serializers import CategorySerializer
 
 from .serializers import EventSerializer,CreateEventSerializer
 
@@ -18,6 +19,13 @@ def event_detail(request,event_id):
 class EventView(generics.ListCreateAPIView):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
+
+
+class CategoryView(APIView):
+    def get(self, request):
+        categories = Category.objects.order_by('id')
+        serializer = CategorySerializer(categories, many=True)
+        return Response(serializer.data)
 
 class CreateEventView(APIView):
     # override default methods

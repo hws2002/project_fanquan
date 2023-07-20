@@ -21,5 +21,6 @@ urlpatterns = [
     path('event_hall/',include('event_hall.urls')),
     path('messages_contacts/',include('messages_contacts.urls')),
     path('dashboard/',include('dashboard.urls')),
+    path('forum/',include('forum.urls')),
     # add more paths here for other apps
 ]

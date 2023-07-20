@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-# from rest_framework import generics
-from .serializers import GroupSerializer
-from .models import Group
+from rest_framework import generics
+# from .serializers import GroupSerializer
+# from .models import Group
 # Create your views here.
 
 # if has app-level static file sand templates, render templates like so 

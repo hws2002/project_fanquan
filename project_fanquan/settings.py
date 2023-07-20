@@ -37,10 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'dashboard.apps.DashboardConfig',
+    'dashboard',
     'event_hall',
     'messages_contacts',
-    'dashboard.apps.DashboardConfig',
+    'forum',
     'rest_framework',
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -82,13 +86,27 @@ WSGI_APPLICATION = 'project_fanquan.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+# USE MYSQL INSTEAD OF SQLITE3
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'db_fanquan',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+        'USER': 'fanquanadmin',
+        'PASSWORD': 'admin123',
     }
 }
 
+# User model
+AUTH_USER_MODEL = 'dashboard.User'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -130,6 +148,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static', 'dashboard'),
     os.path.join(BASE_DIR, 'static', 'event_hall'),
     os.path.join(BASE_DIR, 'static', 'messages_contacts'),
+    os.path.join(BASE_DIR, 'static', 'forum'),
 ]
 
 # Default primary key field type

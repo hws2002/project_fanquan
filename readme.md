@@ -3,12 +3,16 @@
 # 项目介绍
 该repo是2023年泛圈项目的仓库，包含前端和后端代码。  
 前段使用react，后端使用django和django rest framework。
-详细的开发文档(notion)： https://chocolate-vanadium-ef9.notion.site/APP-f20ad60b0a97476ba71d96a1211ff785?pvs=4  
+[详细的开发文档(notion)](https://chocolate-vanadium-ef9.notion.site/APP-f20ad60b0a97476ba71d96a1211ff785?pvs=4)  
+
 ## **How to use**
 1. download/clone this project
 2. make a virtual environment and download the packages in requirements.txt
+本人使用了conda，不是python的 virtualenv，所以以下命令可能不适用于virtualenv。
+```bash
 ```bash
 pip install -r requirements.txt
+npm install
 ```
 (also you can use global environment, but it is 'highly recommended' to use virtual environment)
 if you have installed new dependencies, please update requirements.txt

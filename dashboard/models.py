@@ -87,8 +87,8 @@ class Status(models.Model):
         db_table = 'Status'
         
 class Friendship(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_friend',db_column='user_id')
-    friend_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friend_user',db_column='friend_id')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_friend',db_column='user')
+    friend = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friend_user',db_column='friend')
     status = models.ForeignKey(Status, on_delete=models.CASCADE, db_column='status')
     
     class Meta:

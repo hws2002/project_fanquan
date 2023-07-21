@@ -51,21 +51,42 @@ export default class CreateEventPage extends Component {
       newCategory: "",
     }));
   };
+  // Add a method to read the CSRF token from the cookie
+  getCookie = (name) => {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      let cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        let cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
 
   handleCreateEventButtonPressed = () =>{
+    const csrftoken = this.getCookie('csrftoken');
+
     console.log(this.state)
     const requestOptions = {
         method: 'POST',
-        headers : {'Content-Type': 'application/json'},
+        headers : {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken
+        },
         body: JSON.stringify({
             event_name: this.state.event_name,
             event_description: this.state.event_description,
-            category_id: this.state.category_id,
+            category_id: parseInt(this.state.category_id),
             capacity : this.state.capacity,
             // category_id: parseInt(this.state.category_id), // Convert to number before sending
           }),
         };
-    fetch("/event_hall/new_event", requestOptions)
+
+    fetch("/event_hall/new_event/", requestOptions)
           .then((response) => response.json())
           .then((data) => console.log(data));
     }

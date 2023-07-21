@@ -23,13 +23,13 @@ class Category(models.Model):
 class Event(models.Model):
     id = models.AutoField(primary_key=True,db_column='id')
     event_name = models.CharField(max_length=128,default="",unique=True,db_column='event_name')
-    host_id = models.ForeignKey(User, on_delete=models.CASCADE,null=False,default=None,related_name='hosting_events',db_column='host_id')
-    category_id = models.ForeignKey(
+    host = models.ForeignKey(User, on_delete=models.CASCADE,null=False,default=None,related_name='hosting_events',db_column='host')
+    category = models.ForeignKey(
         Category,
         # on_delete=models.CASCADE,
         default = '1',
         on_delete=models.PROTECT,
-        db_column='category_id',
+        db_column='category',
         related_name='events',
     )
     event_description = models.CharField(max_length=128,db_column='event_description')
@@ -45,8 +45,8 @@ class Event(models.Model):
 
 # Model : UserEvent (Event Member)
 class UserEvent(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id',related_name='user_events')
-    event_id = models.ForeignKey(Event, on_delete=models.CASCADE, db_column='event_id',related_name='event_members')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user',related_name='user_events')
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, db_column='event',related_name='event_members')
     
     class Meta:
         db_table = 'UserEvent'

@@ -22,12 +22,14 @@ class EventSerializer(serializers.ModelSerializer):
         
 
 class CreateEventSerializer(serializers.ModelSerializer):
+    host_id = serializers.IntegerField()
+    category_id = serializers.IntegerField()
     class Meta:
         model = Event
         fields = (
             'event_name', 
-            # 'host_id', 
-            # 'category_id', 
+            'host_id', 
+            'category_id', 
             'event_description', 
             'capacity', 
         )

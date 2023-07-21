@@ -61,7 +61,7 @@ export default class CreateEventPage extends Component {
             event_name: this.state.event_name,
             event_description: this.state.event_description,
             category_id: this.state.category_id,
-            capacity : this.capacity,
+            capacity : this.state.capacity,
             // category_id: parseInt(this.state.category_id), // Convert to number before sending
           }),
         };

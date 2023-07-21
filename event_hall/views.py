@@ -5,7 +5,7 @@ from .models import Event,Category
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import CategorySerializer
-from .serializers import EventSerializer,CreateEventSerializer
+from .serializers import EventSerializer,CreateEventSerializer,CategorySerializer
 # load user model
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -23,12 +23,49 @@ class EventView(generics.ListCreateAPIView):
     serializer_class = EventSerializer
 
 
+# Get Event details
+class GetEvent(APIView):
+    serializer_class = EventSerializer
+    lookup_url_kwarg = 'event_id'
+    
+    def get(self, request, fromat = None):
+        event_id = request.GET.get(self.lookup_url_kwarg)
+        print(event_id)
+        if event_id != None:
+            event = Event.objects.filter(id=event_id)
+            if len(event) > 0:
+                data = EventSerializer(event[0]).data
+                data['event_name'] = event[0].event_name
+                data['host'] = event[0].host.username
+                data['is_host'] = event[0].host.id == 2  # have to change later
+                # data['is_host'] = host_id == self.requeest.session.session_key? or host id
+                data['category'] = event[0].category.name
+                data['event_description'] = event[0].event_description
+                data['created_at'] = event[0].created_at
+                data['capacity'] = event[0].capacity
+                data['joined'] = event[0].joined
+                # if self.request.session.exists(self.request.session.session_key):
+                #     host = self.request.session.session_key
+                #     if event[0].host_id == host:
+                #         data['is_host'] = True
+                #     if event[0].joined >= event[0].capacity:
+                #         data['is_full'] = True
+                #     if event[0].joined < event[0].capacity:
+                #         data['is_joined'] = True
+                return Response(data,status=status.HTTP_200_OK)
+            return Response({'Event Not Found':'Invalid event id'},status=status.HTTP_404_NOT_FOUND)
+        return Response({'Bad Request':'Event id not found in request'},status=status.HTTP_400_BAD_REQUEST)
+
+#Get all categories
+# for Create Event
 class CategoryView(APIView):
     def get(self, request):
         categories = Category.objects.order_by('id')
         serializer = CategorySerializer(categories, many=True)
         return Response(serializer.data)
-
+    
+    
+# Create Event
 class CreateEventView(APIView):
     # override default methods
     serializer_class = CreateEventSerializer

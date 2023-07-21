@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import CreateEventPage from "./CreateEventPage";
-import Events from "./Events";
+import Event from "./Event";
 import {
   BrowserRouter as Router,
   Routes,
@@ -19,7 +19,7 @@ export default class HomePage extends Component {
             <Routes>
             <Route path="/event_hall/" element={<p>This is the home page</p>} />
             <Route path="/event_hall/create" element={<CreateEventPage />} />
-            <Route path="/event_hall/events/:event_id" element={ <Events/> } />
+            <Route path="/event_hall/event/:event_id" element={ <Event/> } />
             </Routes>
         </Router>
       </div>
